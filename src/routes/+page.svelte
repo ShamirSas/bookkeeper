@@ -5,7 +5,7 @@
 	let { data }: PageProps = $props();
 </script>
 
-<table class="table">
+<table class="table table-striped">
 	<thead>
 		<tr>
 			{#each data.headings as heading}
