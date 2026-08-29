@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { HeadingId } from '$lib/types';
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
@@ -19,7 +20,7 @@
 			<tr>
 				{#each data.headings as heading}
 					<th scope="row">
-						{policy[heading.id]}
+						{policy[heading.id as HeadingId]}
 					</th>
 				{/each}
 			</tr>
