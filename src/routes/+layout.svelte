@@ -1,5 +1,5 @@
 <script lang="ts">
-	import '../app.scss';
+	import '../app.css';
 	import { onMount } from 'svelte';
 	import { page } from '$app/state';
 	import { initBootstrap } from '$lib/bootstrap';
