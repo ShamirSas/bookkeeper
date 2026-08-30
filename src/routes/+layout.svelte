@@ -26,9 +26,9 @@
 	</div>
 </nav>
 
-<main class="container">
+<!-- <main class="container"> -->
 	{@render children()}
-</main>
+<!-- </main> -->
 <!-- 
 <footer class="container py-4 mt-4 border-top text-muted">
 	<small>Bookkeeper</small>

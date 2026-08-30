@@ -1,22 +1,25 @@
-import type {
-	CustomInputTypeConstructorParams,
+import {
 	DateInput,
-	InputType,
 	NumberInput,
-	TextInput
+	SelectInput,
+	TextInput,
+	type IInputTypeOptions,
+	type InputType,
+	type ISelectTypeOptions
 } from './input';
 
-interface IInputOptions {
-	inputClass: typeof TextInput | typeof NumberInput | typeof DateInput;
-	inputClassParams?: CustomInputTypeConstructorParams;
-}
+type InputConfig<T = unknown> =
+	| { inputClass: typeof TextInput; inputClassParams?: IInputTypeOptions }
+	| { inputClass: typeof NumberInput; inputClassParams?: IInputTypeOptions }
+	| { inputClass: typeof DateInput; inputClassParams?: never }
+	| { inputClass: typeof SelectInput<T>; inputClassParams: ISelectTypeOptions<T> };
 
 interface IHeading {
 	id: string;
 	text: string;
 	value: unknown;
 	description?: string;
-	inputType: InputType;
+	input: InputType;
 }
 
 export class HeadingParams {
@@ -29,22 +32,28 @@ export class HeadingParams {
 	}
 }
 
-export class Heading<ValueType = unknown> implements IHeading {
+export class Heading<ValueType = unknown, SelectOptionsType = unknown> implements IHeading {
 	id: HeadingId;
 	text: string;
 	value: ValueType | undefined;
 	description?: string;
-	inputType: InputType;
+	input: InputType;
 
-	constructor(
-		id: HeadingId,
-		options: HeadingParams,
-		{ inputClass, inputClassParams }: IInputOptions
-	) {
+	constructor(id: HeadingId, options: HeadingParams, config: InputConfig<SelectOptionsType>) {
 		this.id = id;
 		this.text = options.text;
 		this.description = options.description;
-		this.inputType = new inputClass(id, inputClassParams);
+		this.input = this.createInputType(this.id, config);
+	}
+
+	createInputType(id: string, config: InputConfig<SelectOptionsType>): InputType {
+		const { inputClass, inputClassParams } = config;
+		if (inputClass === DateInput) return new DateInput(id);
+		if (inputClass === SelectInput)
+			return new SelectInput(id, inputClassParams as ISelectTypeOptions);
+		if (inputClass === NumberInput)
+			return new NumberInput(id, inputClassParams as IInputTypeOptions);
+		return new TextInput(id, inputClassParams as IInputTypeOptions);
 	}
 }
 

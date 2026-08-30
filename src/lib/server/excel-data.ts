@@ -48,18 +48,12 @@ export class ExcelLib {
 		sheet?.eachRow({ includeEmpty: false }, (row, rowNumber) => {
 			if (rowNumber !== 1) {
 				const rowData: Record<string, unknown> = {};
-				// Iterate over all cells in the row
 				row.eachCell({ includeEmpty: false }, (cell, colNumber) => {
-					console.log(`  Column ${colNumber} (Cell value):`, cell.value);
-
 					rowData[columns[colNumber - 1]] = cell.value;
 				});
 				loadedData.push(rowData as PolicyRecord);
 			}
 		});
-
-
-		console.log(loadedData);
 
 		return loadedData;
 	}
