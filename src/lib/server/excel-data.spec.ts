@@ -3,6 +3,7 @@ import { expect, it } from 'vitest';
 import { ExcelLib } from './excel-data';
 import { Workbook, type Worksheet } from 'exceljs';
 import { HeadingId } from '$lib/types';
+import type { Policy } from '$lib/schemas/policy';
 
 describe('excel-data', () => {
 	it('should create a workbook instance', () => {
@@ -39,10 +40,8 @@ describe('excel-data', () => {
 	});
 
 	it('should load data', async () => {
-		for await (const row of ExcelLib.loadData()) {
-			console.log(row);
-		}
-
-		expect(true).toBe(true)
+		const data = await ExcelLib.loadData('data.xlsx');
+		expect(data).toBeDefined();
+		expect(true).toBe(true);
 	});
 });

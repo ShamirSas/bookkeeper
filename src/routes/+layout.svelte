@@ -19,7 +19,7 @@
 	<div class="container">
 		<a class="navbar-brand" href="/">Bookkeeper</a>
 		<div class="navbar-nav">
-			<a class="nav-link" href="/add">Add</a>
+			<!-- <a class="nav-link" href="/add">Add</a> -->
 			<!-- <a class="nav-link" href="/about">About</a>
 			<a class="nav-link" href="/settings">Settings</a> -->
 		</div>
